@@ -1,9 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app_v2/controllers/weather_controller.dart';
+import 'package:weather_app_v2/model/weather_response.dart';
 
-class DetailsPage extends StatelessWidget {
-  const DetailsPage({Key? key}) : super(key: key);
+class DetailsPage extends StatefulWidget {
+  const DetailsPage({Key? key}) : super(key: key);  
+
+  @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
+  final WeatherControllerImpl weatherControllerImpl = WeatherControllerImpl();
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  getData() async{
+    WeatherApiResponse? weatherApiResponse = await weatherControllerImpl.getWeather();
+    print(weatherApiResponse!.timezone);
+  }
 
   @override
   Widget build(BuildContext context) {
